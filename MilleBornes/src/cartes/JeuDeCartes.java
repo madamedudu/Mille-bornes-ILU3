@@ -1,6 +1,6 @@
 package cartes;
 
-
+import java.util.Iterator;
 
 public class JeuDeCartes {
 	private Configuration[] typeDeCartes ; // instance de la classe interne 
@@ -68,6 +68,28 @@ public class JeuDeCartes {
 			}
 		}
 		return tableauCartes;
+	}
+	//on fait le code checkcount pour evaluer que chaque carte a son type correctemement
+	public int occurenceCarte(Carte nomCarteCherche, Carte[] pioche) {
+		int compteur=0;
+		for (int i = 0; i < pioche.length; i++) {
+			if (pioche[i].equals(nomCarteCherche)) {
+				compteur++;
+			}
+		}
+		return compteur;
+	}
+	public boolean checkCount() {
+		Carte[] checkpacquet= donnerCartes();
+		for (int i = 0; i < typeDeCartes.length; i++) {
+			Configuration config= typeDeCartes[i];
+			int nbCartesTrouves= occurenceCarte(config.getCarte(), checkpacquet);
+			if (nbCartesTrouves!=config.getNbExemplaires()) {
+				System.out.println("Erreur nb carte");
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	//classe interne configuration
